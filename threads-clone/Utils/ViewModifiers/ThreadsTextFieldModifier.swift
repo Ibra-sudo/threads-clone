@@ -17,3 +17,10 @@ struct ThreadsTextFieldModifier: ViewModifier {
             .padding(.horizontal, 24)
     }
 }
+
+struct ThreadCellModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 20, height: 18)
+    }
+}
