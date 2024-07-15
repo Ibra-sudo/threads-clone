@@ -111,7 +111,7 @@ struct ShareProfileView: View {
                 .padding()
                 
             }
-            .navigationTitle("Edit Profile")
+            .navigationTitle("Share Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
