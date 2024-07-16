@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
+    let user: User
+    
     @StateObject var viewModel = ContenetViewModel()
     
     var body: some View {
         Group {
-            if viewModel.userSession != nil {
-                ThreadsTabView()
+            if $viewModel.userSession != nil {
+                ThreadsTabView(user: user)
             } else {
                 LoginView()
             }
@@ -22,6 +24,8 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(user: dev.user)
+    }
 }

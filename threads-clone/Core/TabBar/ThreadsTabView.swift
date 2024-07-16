@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ThreadsTabView: View {
     
+    let user: User
+    
     @State private var selectedTab = 0
     @State private var previousSelectedTap = 0
     @State private var showCreateThreadView = false
@@ -45,7 +47,7 @@ struct ThreadsTabView: View {
 //                }
                 .tag(2)
             
-            ActivityView()
+            ActivityView(user: user)
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "heart.fill" : "heart")
                         .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
@@ -81,7 +83,9 @@ struct ThreadsTabView: View {
     }
 }
 
-#Preview {
-    ThreadsTabView()
+struct ThreadsTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        ThreadsTabView(user: dev.user)
+    }
 }
 

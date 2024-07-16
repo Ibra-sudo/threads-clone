@@ -6,22 +6,26 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ThreadCell: View {
+    
+    let thread: Thread
+    
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 12) {
-                CircularProfileImageView(user: nil, size: .small)
+                CircularProfileImageView(user: thread.user, size: .small)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
-                        Text("maxmoro")
+                        Text(thread.user?.username ?? "")
                             .font(.footnote)
                         .fontWeight(.semibold)
                         
                         Spacer()
                         
-                        Text("10m")
+                        Text(thread.timestamp.timestampString())
                             .font(.caption)
                             .foregroundColor(Color(.systemGray3))
                         
@@ -33,7 +37,7 @@ struct ThreadCell: View {
                         }
                     }
                     
-                    Text("HR Management")
+                    Text(thread.caption)
                         .font(.footnote)
                         .multilineTextAlignment(.leading)
                     
@@ -78,6 +82,12 @@ struct ThreadCell: View {
     }
 }
 
-#Preview {
-    ThreadCell()
+//#Preview {
+//    ThreadCell(thread: Thread(ownerUid: "123", caption: "This is a test thread", timestamp: Timestamp(), likes: 0))
+//}
+
+struct ThreadCell_Previews: PreviewProvider {
+    static var previews: some View {
+        ThreadCell(thread: dev.thread)
+    }
 }

@@ -23,7 +23,7 @@ struct threads_cloneApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(user: User(id: NSUUID().uuidString, fullname: "", email: "", username: "", profileImageUrl: "", bio: ""))
         }
     }
 }

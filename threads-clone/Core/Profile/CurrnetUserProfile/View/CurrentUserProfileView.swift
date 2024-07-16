@@ -60,7 +60,9 @@ struct CurrentUserProfileView: View {
                         }
                     }
                     
-                    UserContentListView()
+                    if let user = currentUser {
+                        UserContentListView(user: user)
+                    }
                 }
             }
             .sheet(isPresented: $showEditProfile, content: {
@@ -73,9 +75,7 @@ struct CurrentUserProfileView: View {
             })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        AuthService.shared.signOut()
-                    } label: {
+                    NavigationLink(destination: SettingsView()) {
                         Image(systemName: "line.3.horizontal")
                     }
                     .foregroundColor(.black)
