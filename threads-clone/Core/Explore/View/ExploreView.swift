@@ -16,7 +16,7 @@ struct ExploreView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack{
-                    ForEach(viewModel.users) { user in
+                    ForEach(viewModel.filteredUsers) { user in
                         NavigationLink (value: user) {
                             VStack {
                                 
@@ -33,7 +33,7 @@ struct ExploreView: View {
                 ProfileView(user: user)
             })
             .navigationTitle("Search")
-            .searchable(text: $searchText, prompt: "Search")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
         }
     }
 }

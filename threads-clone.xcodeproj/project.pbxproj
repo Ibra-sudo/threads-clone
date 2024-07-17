@@ -55,6 +55,7 @@
 		33E9B9A92C45E8C7007425CC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B9A82C45E8C7007425CC /* SettingsView.swift */; };
 		33E9B9AB2C46BB86007425CC /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B9AA2C46BB86007425CC /* ActivityCell.swift */; };
 		33E9B9AE2C46C8EE007425CC /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B9AD2C46C8EE007425CC /* ActivityViewModel.swift */; };
+		33E9B9B12C473A03007425CC /* ComponentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B9B02C473A03007425CC /* ComponentsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		33E9B9A82C45E8C7007425CC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		33E9B9AA2C46BB86007425CC /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		33E9B9AD2C46C8EE007425CC /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
+		33E9B9B02C473A03007425CC /* ComponentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33624AD72C482E4D003DCBDD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				33E9B9AA2C46BB86007425CC /* ActivityCell.swift */,
+				33E9B9502C3ED766007425CC /* CircularProfileImageView.swift */,
+				33E9B94D2C3E22AA007425CC /* ThreadCell.swift */,
+				33E9B9522C3ED830007425CC /* UserCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		33E9B90C2C3D8F6E007425CC = {
 			isa = PBXGroup;
 			children = (
@@ -357,10 +370,8 @@
 		33E9B94F2C3ED72B007425CC /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				33E9B9AA2C46BB86007425CC /* ActivityCell.swift */,
-				33E9B9502C3ED766007425CC /* CircularProfileImageView.swift */,
-				33E9B94D2C3E22AA007425CC /* ThreadCell.swift */,
-				33E9B9522C3ED830007425CC /* UserCell.swift */,
+				33624AD72C482E4D003DCBDD /* View */,
+				33E9B9AF2C4739E2007425CC /* ViewModel */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -546,6 +557,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		33E9B9AF2C4739E2007425CC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				33E9B9B02C473A03007425CC /* ComponentsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -661,6 +680,7 @@
 				33E9B9902C447E79007425CC /* EditProfileViewModel.swift in Sources */,
 				33E9B9192C3D8F6E007425CC /* threads_cloneApp.swift in Sources */,
 				33E9B9402C3DA4B3007425CC /* ExploreView.swift in Sources */,
+				33E9B9B12C473A03007425CC /* ComponentsViewModel.swift in Sources */,
 				33E9B94C2C3DA5C7007425CC /* ProfileView.swift in Sources */,
 				33E9B9322C3D9CFA007425CC /* RegistrationView.swift in Sources */,
 				33E9B9AE2C46C8EE007425CC /* ActivityViewModel.swift in Sources */,

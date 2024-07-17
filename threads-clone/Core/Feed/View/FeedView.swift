@@ -23,8 +23,15 @@ struct FeedView: View {
             .refreshable {
                 Task { try await viewModel.fetchThreads() }
             }
-            .navigationTitle("Threads")
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Image("threads-app-icon")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 70, height: 70)
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

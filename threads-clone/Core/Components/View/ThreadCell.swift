@@ -12,6 +12,8 @@ struct ThreadCell: View {
     
     let thread: Thread
     
+    @StateObject var viewModel = ComponentsViewModel()
+    
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 12) {
@@ -30,7 +32,7 @@ struct ThreadCell: View {
                             .foregroundColor(Color(.systemGray3))
                         
                         Button {
-                            
+                            Task { try await viewModel.deleteThread(thread: thread) }
                         } label: {
                             Image(systemName: "ellipsis")
                                 .foregroundColor(Color(.darkGray))
@@ -81,10 +83,6 @@ struct ThreadCell: View {
         .padding()
     }
 }
-
-//#Preview {
-//    ThreadCell(thread: Thread(ownerUid: "123", caption: "This is a test thread", timestamp: Timestamp(), likes: 0))
-//}
 
 struct ThreadCell_Previews: PreviewProvider {
     static var previews: some View {

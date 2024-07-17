@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if $viewModel.userSession != nil {
+            if viewModel.userSession != nil {
                 ThreadsTabView(user: user)
             } else {
                 LoginView()

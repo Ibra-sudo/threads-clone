@@ -19,15 +19,16 @@ struct ActivityCell: View {
                     
                     Image(systemName: "person.circle")
                         .resizable()
+                        .scaledToFill()
                         .frame(width: 20, height: 20)
                         .foregroundColor(.white)
                         .background(.blue)
                         .clipShape(Circle())
                         .overlay {
                             Circle()
-                                .stroke(Color(.white), lineWidth: 3)
+                                .stroke(Color(.white), lineWidth: 2)
                         }
-                        .offset(x: 20, y: 15)
+                        .offset(x: 20, y: 16)
                 }
                 .padding(.trailing, 10)
                     
@@ -58,7 +59,7 @@ struct ActivityCell: View {
             }
             .padding(.horizontal)
             Divider()
-                .padding(.leading, 71)
+                .padding(.leading, 80)
         }
         .padding(.vertical, 10)
     }
