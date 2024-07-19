@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     let user: User
     
     var body: some View {
@@ -25,9 +27,9 @@ struct ProfileView: View {
                     Text("Follow")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                         .frame(width: 352, height: 32)
-                        .background(.black)
+                        .background(colorScheme == .dark ? Color.white : Color.black)
                         .cornerRadius(8)
                 }
                 

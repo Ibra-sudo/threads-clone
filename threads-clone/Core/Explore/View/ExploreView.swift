@@ -40,4 +40,5 @@ struct ExploreView: View {
 
 #Preview {
     ExploreView()
+        .preferredColorScheme(.dark)
 }

@@ -79,7 +79,7 @@ struct ThreadsTabView: View {
         }, content: {
             CreatThreadView()
         })
-        .tint(.black)
+        .tint(.primary)
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct FeedView: View {
     
     @StateObject var viewModel = FeedViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationStack {
@@ -27,7 +28,7 @@ struct FeedView: View {
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Image("threads-app-icon")
+                Image(colorScheme == .light ? "threads-app-icon" : "threads-app-icon-white")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 70, height: 70)
@@ -39,7 +40,7 @@ struct FeedView: View {
                     Task { try await viewModel.fetchThreads() }
                 } label: {
                     Image(systemName: "arrow.counterclockwise")
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                 }
             }
         }

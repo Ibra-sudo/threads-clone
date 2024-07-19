@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel = CurrentUserProfileViewModel()
     @State private var showEditProfile = false
     @State private var shareProfile = false
@@ -33,13 +34,13 @@ struct CurrentUserProfileView: View {
                             Text("Edit Profile")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .light ? Color.black : Color.white)
                                 .frame(width: 175, height: 32)
-                                .background(.white)
+                                .background(colorScheme == .light ? Color.white : Color.black)
                                 .cornerRadius(8)
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color(.systemGray4), lineWidth: 1)
+                                        .stroke(Color(.systemGray3), lineWidth: 1)
                                 }
                         }
                         
@@ -49,13 +50,13 @@ struct CurrentUserProfileView: View {
                             Text("Share Profile")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .light ? Color.black : Color.white)
                                 .frame(width: 175, height: 32)
-                                .background(.white)
+                                .background(colorScheme == .light ? Color.white : Color.black)
                                 .cornerRadius(8)
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color(.systemGray4), lineWidth: 1)
+                                        .stroke(Color(.systemGray3), lineWidth: 1)
                                 }
                         }
                     }
@@ -78,7 +79,7 @@ struct CurrentUserProfileView: View {
                     NavigationLink(destination: SettingsView()) {
                         Image(systemName: "line.3.horizontal")
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 }
             }
             .padding(.horizontal)

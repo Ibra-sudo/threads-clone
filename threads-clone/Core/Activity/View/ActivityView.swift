@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ActivityView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     let user: User
     
     @StateObject var viewModel = ActivityViewModel()
@@ -24,10 +26,14 @@ struct ActivityView: View {
                             Text("All")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                                 .frame(width: 130, height: 43)
-                                .background(.black)
+                                .background(colorScheme == .dark ? Color.white : Color.black)
                                 .cornerRadius(10)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(colorScheme == .dark ? Color(.systemGray4) : Color(.systemGray2))
+                                }
                         }
                         Button {
                             
@@ -35,12 +41,13 @@ struct ActivityView: View {
                             Text("Replies")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .light ? Color.black : Color.white)
                                 .frame(width: 130, height: 43)
-                                .background(.white)
+                                .background(colorScheme == .light ? Color.white : Color.black)
+                                .cornerRadius(10)
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color(.systemGray4))
+                                        .stroke(colorScheme == .light ? Color(.systemGray4) : Color(.systemGray2))
                                 }
                         }
                     }

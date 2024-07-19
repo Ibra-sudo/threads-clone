@@ -11,6 +11,8 @@ struct ActivityCell: View {
     
     let user: User
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack {
             HStack {
@@ -19,14 +21,14 @@ struct ActivityCell: View {
                     
                     Image(systemName: "person.circle")
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                        .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                         .background(.blue)
                         .clipShape(Circle())
                         .overlay {
                             Circle()
-                                .stroke(Color(.white), lineWidth: 2)
+                                .stroke(colorScheme == .dark ? Color.black : Color.white , lineWidth: 2)
                         }
                         .offset(x: 20, y: 16)
                 }

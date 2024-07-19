@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -22,7 +25,8 @@ struct SettingsView: View {
                             Text("Notifications")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.black)
+//                                .foregroundStyle(.black)
+                                .foregroundColor(.primary)
                         }
                     }
                     
@@ -36,7 +40,8 @@ struct SettingsView: View {
                             Text("Privacy")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.black)
+//                                .foregroundStyle(.black)
+                                .foregroundColor(.primary)
                         }
                     }
                     
@@ -50,7 +55,8 @@ struct SettingsView: View {
                             Text("Account")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.black)
+//                                .foregroundStyle(.black)
+                                .foregroundColor(.primary)
                         }
                     }
                     
@@ -64,7 +70,8 @@ struct SettingsView: View {
                             Text("Help")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.black)
+//                                .foregroundStyle(.black)
+                                .foregroundColor(.primary)
                         }
                     }
                     
@@ -78,11 +85,13 @@ struct SettingsView: View {
                             Text("About")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.black)
+//                                .foregroundStyle(.black)
+                                .foregroundColor(.primary)
                         }
                     }
                     
                     Divider()
+//                        .background(colorScheme == .dark ? Color.white : Color.black)
                     
                     Button {
                         AuthService.shared.signOut()
@@ -91,7 +100,7 @@ struct SettingsView: View {
                             .font(.subheadline)
                             .fontWeight(.semibold)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 }
                 .padding(.vertical, 12)
             }

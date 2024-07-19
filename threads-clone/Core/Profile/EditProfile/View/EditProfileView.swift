@@ -12,6 +12,7 @@ struct EditProfileView: View {
     
     let user: User
     
+    @Environment(\.colorScheme) var colorScheme
     @State private var bio = ""
     @State private var link = ""
     @State private var isPrivateProfile = false
@@ -43,9 +44,17 @@ struct EditProfileView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
+//                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color(.systemGray2), lineWidth: 1)
+                                    }
                             } else {
                                 CircularProfileImageView(user: user, size: .small)
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color(.systemGray2), lineWidth: 1)
+                                    }
                             }
                                 
                         }
@@ -75,11 +84,15 @@ struct EditProfileView: View {
                     
                     Divider()
                     
-                    Toggle("Private Profile", isOn: $isPrivateProfile)
+                    Toggle(isOn: $isPrivateProfile) {
+                        Text("Private Profile")
+                    }
+                    .tint(colorScheme == .dark ? Color(.darkGray) : Color.black)
+//                    .tint(colorScheme == .light ? Color.white : Color.black)
                 }
                 .font(.footnote)
                 .padding()
-                .background(.white)
+                .background(colorScheme == .light ? Color.white : Color.black)
                 .cornerRadius(10)
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
@@ -96,7 +109,7 @@ struct EditProfileView: View {
                         dismiss()
                     }
                     .font(.subheadline)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -107,7 +120,7 @@ struct EditProfileView: View {
                     }
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 }
             }
         }

@@ -35,7 +35,7 @@ struct UserContentListView: View {
                         
                         if selectedFilter == filter {
                             Rectangle()
-                                .foregroundColor(.black)
+                                .foregroundColor(.primary)
                                 .frame(width: filterBarWidth, height: 1)
                                 .matchedGeometryEffect(id: "item", in: animation) // to make move on as smothy animation and we need property name: Namespace to do this animation
                         } else {

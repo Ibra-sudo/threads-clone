@@ -10,13 +10,14 @@ import SwiftUI
 struct RegistrationView: View {
     
     @StateObject var viewModel = RegistrationViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
             Spacer()
-            Image("threads-app-icon")
+            Image(colorScheme == .light ? "threads-app-icon" : "threads-app-icon-white")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
@@ -52,6 +53,10 @@ struct RegistrationView: View {
                     .frame(width: 352, height: 44)
                     .background(.black)
                     .cornerRadius(8)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color(.systemGray3))
+                    }
             }
             .padding(.vertical)
             
@@ -68,7 +73,7 @@ struct RegistrationView: View {
                     Text("Sign In")
                         .fontWeight(.semibold)
                 }
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
                 .font(.footnote)
             }
             .padding(.vertical, 16)

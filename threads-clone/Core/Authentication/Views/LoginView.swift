@@ -10,12 +10,13 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject var viewModel = LoginViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
-                Image("threads-app-icon")
+                Image(colorScheme == .light ? "threads-app-icon" : "threads-app-icon-white")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 200)
@@ -39,7 +40,7 @@ struct LoginView: View {
                         .fontWeight(.semibold)
                         .padding(.vertical)
                         .padding(.trailing, 28)
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 
@@ -53,6 +54,10 @@ struct LoginView: View {
                         .frame(width: 352, height: 44)
                         .background(.black)
                         .cornerRadius(8)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color(.systemGray3))
+                        }
                 }
                 
                 Spacer()
@@ -68,7 +73,7 @@ struct LoginView: View {
                         Text("Sign Up")
                             .fontWeight(.semibold)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .font(.footnote)
                 }
                 .padding(.vertical, 16)

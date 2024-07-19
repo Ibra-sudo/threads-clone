@@ -10,6 +10,8 @@ import Firebase
 
 struct ThreadCell: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     let thread: Thread
     
     @StateObject var viewModel = ComponentsViewModel()
@@ -29,13 +31,13 @@ struct ThreadCell: View {
                         
                         Text(thread.timestamp.timestampString())
                             .font(.caption)
-                            .foregroundColor(Color(.systemGray3))
+                            .foregroundColor(colorScheme == .light ? Color(.systemGray3) : Color(.systemGray))
                         
                         Button {
                             Task { try await viewModel.deleteThread(thread: thread) }
                         } label: {
                             Image(systemName: "ellipsis")
-                                .foregroundColor(Color(.darkGray))
+                                .foregroundColor(colorScheme == .light ? Color(.darkGray) : Color.white)
                         }
                     }
                     
@@ -49,6 +51,7 @@ struct ThreadCell: View {
                         } label: {
                             Image(systemName: "heart")
                                 .resizable()
+//                                .foregroundColor(.primary)
                                 .modifier(ThreadCellModifier())
                         }
                         
@@ -57,6 +60,7 @@ struct ThreadCell: View {
                         } label: {
                             Image(systemName: "bubble.right")
                                 .resizable()
+//                                .foregroundColor(.primary)
                                 .modifier(ThreadCellModifier())
                                 .padding(.top, 2)
                         }
@@ -65,15 +69,17 @@ struct ThreadCell: View {
                             
                         } label: {
                             Image(systemName: "arrow.rectanglepath")
+//                                .foregroundColor(.primary)
                         }
                         
                         Button {
                             
                         } label: {
                             Image(systemName: "paperplane")
+//                                .foregroundColor(.primary)
                         }
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .padding(.vertical, 6)
                 }
             }

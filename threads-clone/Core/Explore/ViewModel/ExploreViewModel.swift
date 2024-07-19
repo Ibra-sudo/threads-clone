@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 class ExploreViewModel: ObservableObject {
     
@@ -14,7 +13,6 @@ class ExploreViewModel: ObservableObject {
     @Published var filteredUsers = [User]()
     @Published var searchText = "" {
         didSet {
-//            print("Search text changed to: \(searchText)")
             filterUsers()
         }
     }
