@@ -15,6 +15,7 @@ struct ThreadCell: View {
     let thread: Thread
     
     @StateObject var viewModel = ComponentsViewModel()
+    @State private var likeToggle: Bool = false
     
     var body: some View {
         VStack {
@@ -47,12 +48,20 @@ struct ThreadCell: View {
                     
                     HStack(spacing: 16) {
                         Button {
-                            
+                            Task {
+                                if likeToggle {
+                                    try await viewModel.unlikeThread(thread: thread)
+                                } else {
+                                    try await viewModel.likeThread(thread: thread)
+                                }
+//                                try await viewModel.toggleLike(thread: thread)
+                                likeToggle.toggle()
+                            }
                         } label: {
-                            Image(systemName: "heart")
+                            Image(systemName: likeToggle ? "heart.fill" : "heart")
                                 .resizable()
-//                                .foregroundColor(.primary)
                                 .modifier(ThreadCellModifier())
+                                .foregroundColor(likeToggle ? .red : (colorScheme == .dark ? .white : .black))
                         }
                         
                         Button {
@@ -87,6 +96,9 @@ struct ThreadCell: View {
             Divider()
         }
         .padding()
+        .onAppear {
+            likeToggle = thread.likes.contains(Auth.auth().currentUser?.uid ?? "")
+        }
     }
 }
 

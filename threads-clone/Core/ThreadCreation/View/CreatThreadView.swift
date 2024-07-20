@@ -40,7 +40,7 @@ struct CreatThreadView: View {
                             TextField("Start a thread...", text: $caption, axis: .vertical)
                                 .onChange(of: caption) { oldValue, newValue in
                                     if newValue.count > characterLimit {
-                                        caption = String(newValue.prefix(900))
+                                        caption = String(newValue.prefix(620))
                                     }
                                 }
                         }
@@ -77,6 +77,7 @@ struct CreatThreadView: View {
                         Text("\(characterLimit - caption.count)")
                             .font(.footnote)
                             .foregroundColor((characterLimit - caption.count) < 0 ? .red : .gray)
+                            .opacity((characterLimit - caption.count) <= 50 ? 1.0 : 0.0)
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {

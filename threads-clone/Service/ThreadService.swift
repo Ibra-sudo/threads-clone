@@ -39,4 +39,29 @@ struct ThreadService {
         try await thread.delete()
         
     }
+    
+    static func likeUserThread(thread: Thread, uid: String) async throws {
+        let document = Firestore.firestore().collection("threads").document(thread.id)
+        try await document.updateData(["likes": FieldValue.arrayUnion([uid])])
+    }
+    
+    static func unlikeUserThread(thread: Thread, uid: String) async throws {
+        let document = Firestore.firestore().collection("threads").document(thread.id)
+        try await document.updateData(["likes": FieldValue.arrayRemove([uid])])
+    }
+    
+//    static func toggleLikeThread(thread: Thread, uid: String) async throws {
+//        let thread = Firestore.firestore().collection("threads").document(thread.id)
+//        let snapshot = try await thread.getDocument()
+//        
+//        guard var likes = snapshot.data()?["likes"] as? [String] else { return }
+//        
+//        if likes.contains(uid) {
+//            likes.removeAll(where: { $0 == uid })
+//        } else {
+//            likes.insert(uid, at: 0)
+//        }
+//        
+//        try await thread.updateData(["likes": likes])
+//    }
 }

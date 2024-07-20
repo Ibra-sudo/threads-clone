@@ -12,11 +12,11 @@ struct Thread: Identifiable, Codable {
     
     @DocumentID var threadId: String?
     
-//    let id: String
     let ownerUid: String
     let caption: String
     let timestamp: Timestamp
-    var likes: Int
+    var likes: [String]
+    var comments: [String]
     
     var id: String {
         return threadId ?? NSUUID().uuidString
