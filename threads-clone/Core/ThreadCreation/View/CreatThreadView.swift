@@ -13,6 +13,12 @@ struct CreatThreadView: View {
     @State private var caption = ""
     @Environment(\.dismiss) var dismiss
     
+    // to resizable width of the phone screen
+    private func calculateHeight() -> CGFloat {
+        let textHeight = caption.height(withConstrainedWidth: UIScreen.main.bounds.width - 60, font: UIFont.systemFont(ofSize: 14))
+        return textHeight + 30
+    }
+    
     private var user: User? {
         return UserService.shared.currentUser
     }
@@ -21,77 +27,98 @@ struct CreatThreadView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                VStack {
-                    HStack(alignment: .top){
-                        
-                        HStack(alignment: .top) {
-                            
-                            VStack(alignment: .leading) {
-                                CircularProfileImageView(user: user, size: .small)
-                            }
-                            
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(user?.username ?? "")
-                                .fontWeight(.semibold)
-                            
-                            TextField("Start a thread...", text: $caption, axis: .vertical)
-                                .onChange(of: caption) { oldValue, newValue in
-                                    if newValue.count > characterLimit {
-                                        caption = String(newValue.prefix(620))
-                                    }
-                                }
-                        }
-                        .font(.footnote)
-                        Spacer()
-                        
-                        if !caption.isEmpty {
-                            Button {
-                                caption = ""
-                            } label: {
-                                Image(systemName: "xmark")
-                                    .resizable()
-                                    .frame(width: 12, height: 12)
-                                    .foregroundColor(.gray)
-                            }
-                        }
+            VStack(alignment: .leading) {
+                HStack(alignment: .top, spacing: 12){
+                    
+                    VStack {
+                        CircularProfileImageView(user: user, size: .small)
+
+                        Rectangle()
+                            .frame(width: 1.6, height: calculateHeight())
+                            .foregroundColor(Color(.systemGray4))
+                            .padding(.vertical, 4)
                     }
                     
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(user?.username ?? "")
+                            .fontWeight(.semibold)
+                        
+                        TextField("Start a thread...", text: $caption, axis: .vertical)
+                            .onChange(of: caption) { oldValue, newValue in
+                                if newValue.count > characterLimit {
+                                    caption = String(newValue.prefix(620))
+                                }
+                            }
+                    }
+                    .font(.footnote)
                     Spacer()
+                    
+                    if !caption.isEmpty {
+                        Button {
+                            caption = ""
+                        } label: {
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .foregroundColor(.gray)
+                        }
+                    }
                 }
-                .padding()
-                .navigationTitle("New Thread")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel") {
+                
+                HStack(alignment: .bottom) {
+                    if caption.isEmpty {
+                        CircularProfileImageView(user: user, size: .xxSmall)
+                            .opacity(0.4)
+                    
+                        Text("   Add to thread")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .opacity(0.4)
+                    } else {
+                        CircularProfileImageView(user: user, size: .xxSmall)
+                            .opacity(1.0)
+                        
+                        Text("   Add to thread")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .opacity(1.0)
+                    }
+                }
+                .padding(.horizontal, 8)
+                Spacer()
+                
+
+            }
+            .padding()
+            .navigationTitle("New Thread")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Text("\(characterLimit - caption.count)")
+                        .font(.footnote)
+                        .foregroundColor((characterLimit - caption.count) < 0 ? .red : .gray)
+                        .opacity((characterLimit - caption.count) <= 50 ? 1.0 : 0.0)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Post") {
+                        Task{ try await viewModel.uploadThread(caption: caption)
                             dismiss()
                         }
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
                     }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Text("\(characterLimit - caption.count)")
-                            .font(.footnote)
-                            .foregroundColor((characterLimit - caption.count) < 0 ? .red : .gray)
-                            .opacity((characterLimit - caption.count) <= 50 ? 1.0 : 0.0)
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Post") {
-                            Task{ try await viewModel.uploadThread(caption: caption)
-                                dismiss()
-                            }
-                        }
-                        .opacity(caption.isEmpty || caption.count > characterLimit ? 0.5 : 1.0)
-                        .disabled(caption.isEmpty || caption.count > characterLimit)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    }
+                    .opacity(caption.isEmpty || caption.count > characterLimit ? 0.5 : 1.0)
+                    .disabled(caption.isEmpty || caption.count > characterLimit)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
                 }
             }
         }

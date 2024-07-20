@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		33624ADC2C4B4459003DCBDD /* AnswerThreadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33624ADB2C4B4459003DCBDD /* AnswerThreadView.swift */; };
 		33624ADE2C4B4476003DCBDD /* AnswerThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33624ADD2C4B4476003DCBDD /* AnswerThreadViewModel.swift */; };
+		33BED4372C4C512C002049A9 /* CalculateHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BED4362C4C512C002049A9 /* CalculateHeight.swift */; };
 		33E9B9192C3D8F6E007425CC /* threads_cloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B9182C3D8F6E007425CC /* threads_cloneApp.swift */; };
 		33E9B91B2C3D8F6E007425CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B91A2C3D8F6E007425CC /* ContentView.swift */; };
 		33E9B91D2C3D8F70007425CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E9B91C2C3D8F70007425CC /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		33624ADB2C4B4459003DCBDD /* AnswerThreadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerThreadView.swift; sourceTree = "<group>"; };
 		33624ADD2C4B4476003DCBDD /* AnswerThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerThreadViewModel.swift; sourceTree = "<group>"; };
+		33BED4362C4C512C002049A9 /* CalculateHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHeight.swift; sourceTree = "<group>"; };
 		33E9B9152C3D8F6E007425CC /* threads-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "threads-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E9B9182C3D8F6E007425CC /* threads_cloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threads_cloneApp.swift; sourceTree = "<group>"; };
 		33E9B91A2C3D8F6E007425CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				33E9B97C2C418910007425CC /* PreviewProvider.swift */,
 				33E9B9A42C45E51C007425CC /* Timestamp.swift */,
+				33BED4362C4C512C002049A9 /* CalculateHeight.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				33E9B94E2C3E22AA007425CC /* ThreadCell.swift in Sources */,
 				33E9B9482C3DA58D007425CC /* ActivityView.swift in Sources */,
 				33E9B9712C3F58A6007425CC /* LoginViewModel.swift in Sources */,
+				33BED4372C4C512C002049A9 /* CalculateHeight.swift in Sources */,
 				33E9B9872C41A32A007425CC /* ProfileHeaderView.swift in Sources */,
 				33E9B9512C3ED766007425CC /* CircularProfileImageView.swift in Sources */,
 				33E9B9532C3ED830007425CC /* UserCell.swift in Sources */,

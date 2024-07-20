@@ -26,7 +26,7 @@ struct ThreadCell: View {
                     HStack {
                         Text(thread.user?.username ?? "")
                             .font(.footnote)
-                        .fontWeight(.semibold)
+                            .fontWeight(.semibold)
                         
                         Spacer()
                         

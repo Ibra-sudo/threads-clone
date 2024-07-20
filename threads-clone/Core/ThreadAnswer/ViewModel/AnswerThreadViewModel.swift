@@ -12,7 +12,7 @@ class AnswerThreadViewModel: ObservableObject {
     
     func uploadAnswer(caption: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let answer = Thread(ownerUid: NSUUID().uuidString, caption: caption, timestamp: Timestamp(), likes: [], comments: [])
+        let answer = Thread(ownerUid: uid, caption: caption, timestamp: Timestamp(), likes: [], comments: [])
         try await ThreadService.uploadThread(answer)
     }
 }
