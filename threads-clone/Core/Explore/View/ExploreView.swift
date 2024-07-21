@@ -34,11 +34,11 @@ struct ExploreView: View {
             })
             .navigationTitle("Search")
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
+                .autocapitalization(.none)
         }
     }
 }
 
 #Preview {
     ExploreView()
-        .preferredColorScheme(.dark)
 }

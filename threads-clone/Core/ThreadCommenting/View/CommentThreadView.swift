@@ -1,18 +1,20 @@
 //
-//  CreatThreadView.swift
+//  CommentThreadView.swift
 //  threads-clone
 //
-//  Created by Abdulrahman Ibrahim on 09.07.24.
+//  Created by Abdulrahman Ibrahim on 20.07.24.
 //
 
 import SwiftUI
+import Firebase
 
-struct CreatThreadView: View {
+struct CommentThreadView: View {
     
-    @StateObject var viewModel = CreateThreadViewModel()
+    @StateObject var viewModel = CommentThreadViewModel()
     @State private var caption = ""
     @Environment(\.dismiss) var dismiss
     
+    let thread: Thread
     
     // to resizable height of a Rectangle
     private func calculateHeight() -> CGFloat {
@@ -29,6 +31,9 @@ struct CreatThreadView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
+                
+                ReplayThreadCell(thread: thread)
+                
                 HStack(alignment: .top, spacing: 12){
                     
                     VStack {
@@ -135,7 +140,7 @@ struct CreatThreadView: View {
 
             }
             .padding()
-            .navigationTitle("New Thread")
+            .navigationTitle("Reply Thread")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -155,7 +160,7 @@ struct CreatThreadView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Post") {
-                        Task{ try await viewModel.uploadThread(caption: caption)
+                        Task{ try await viewModel.uploadComment(thread: thread, caption: caption)
                             dismiss()
                         }
                     }
@@ -170,8 +175,8 @@ struct CreatThreadView: View {
     }
 }
 
-struct CreatThreadView_Previews: PreviewProvider {
+struct CommentThreadView_Previews: PreviewProvider {
     static var previews: some View {
-        CreatThreadView()
+        CommentThreadView(thread: dev.thread)
     }
 }

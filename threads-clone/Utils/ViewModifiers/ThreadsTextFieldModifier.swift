@@ -24,3 +24,10 @@ struct ThreadCellModifier: ViewModifier {
             .frame(width: 20, height: 18)
     }
 }
+
+struct ThreadCreateModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 19, height: 17)
+    }
+}

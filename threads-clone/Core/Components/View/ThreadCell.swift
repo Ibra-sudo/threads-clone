@@ -11,11 +11,13 @@ import Firebase
 struct ThreadCell: View {
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
     
     let thread: Thread
     
     @StateObject var viewModel = ComponentsViewModel()
     @State private var likeToggle: Bool = false
+    @State private var showCommentThreadView = false
     
     var body: some View {
         VStack {
@@ -65,11 +67,10 @@ struct ThreadCell: View {
                         }
                         
                         Button {
-                            
+                            showCommentThreadView.toggle()
                         } label: {
                             Image(systemName: "bubble.right")
                                 .resizable()
-//                                .foregroundColor(.primary)
                                 .modifier(ThreadCellModifier())
                                 .padding(.top, 2)
                         }
@@ -78,14 +79,12 @@ struct ThreadCell: View {
                             
                         } label: {
                             Image(systemName: "arrow.rectanglepath")
-//                                .foregroundColor(.primary)
                         }
                         
                         Button {
                             
                         } label: {
                             Image(systemName: "paperplane")
-//                                .foregroundColor(.primary)
                         }
                     }
                     .foregroundColor(.primary)
@@ -98,6 +97,9 @@ struct ThreadCell: View {
         .padding()
         .onAppear {
             likeToggle = thread.likes.contains(Auth.auth().currentUser?.uid ?? "")
+        }
+        .sheet(isPresented: $showCommentThreadView) {
+            CommentThreadView(thread: thread)
         }
     }
 }

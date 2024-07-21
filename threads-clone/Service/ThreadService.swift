@@ -50,6 +50,12 @@ struct ThreadService {
         try await document.updateData(["likes": FieldValue.arrayRemove([uid])])
     }
     
+    static func uploadComment(thread: Thread, comment: Comment) async throws {
+//        guard let commentData = try? Firestore.Encoder().encode(thread) else { return }
+        let document = Firestore.firestore().collection("threads").document(thread.id)
+        try await document.updateData(["comments": FieldValue.arrayUnion([Firestore.Encoder().encode(comment)])])
+    }
+    
 //    static func toggleLikeThread(thread: Thread, uid: String) async throws {
 //        let thread = Firestore.firestore().collection("threads").document(thread.id)
 //        let snapshot = try await thread.getDocument()
