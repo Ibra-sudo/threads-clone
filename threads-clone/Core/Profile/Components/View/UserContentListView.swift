@@ -31,18 +31,18 @@ struct UserContentListView: View {
                     VStack {
                         Text(filter.title)
                             .font(.subheadline)
-                            .fontWeight(selectedFilter == filter ? .semibold : .regular)
-                        
+                            .fontWeight(selectedFilter == filter ? .semibold : .light)
                         if selectedFilter == filter {
                             Rectangle()
                                 .foregroundColor(.primary)
                                 .frame(width: filterBarWidth, height: 1)
                                 .matchedGeometryEffect(id: "item", in: animation) // to make move on as smothy animation and we need property name: Namespace to do this animation
                         } else {
-                            Rectangle()
+                            Divider()
                                 .foregroundColor(.clear)
                                 .frame(width: filterBarWidth, height: 1)
                         }
+                        
                     }
                     .onTapGesture {
                         withAnimation(.spring()) {
@@ -61,11 +61,8 @@ struct UserContentListView: View {
                 }
             case .replies:
                 LazyVStack {
-                    ForEach(1 ..< 10, id: \.self) { thread in
-                        Text("Replies")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .padding(.vertical)
+                    ForEach(viewModel.threads) { thread in
+                        RepliesThreadView(thread: thread)
                     }
                 }
             case .reposts:

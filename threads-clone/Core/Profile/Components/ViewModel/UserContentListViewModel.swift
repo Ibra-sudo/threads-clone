@@ -11,7 +11,7 @@ class UserContentListViewModel: ObservableObject {
     
     @Published var threads = [Thread]()
     
-    let user: User
+    var user: User
     
     init(user: User) {
         self.user = user
@@ -27,4 +27,14 @@ class UserContentListViewModel: ObservableObject {
         }
         self.threads = threads
     }
+    
+//    @MainActor
+//    func fetchComments() async throws {
+//        var comments = try await ThreadService.fetchComments()
+//        
+//        for i in 0 ..< threads.count {
+//            threads[i].user = self.user
+//        }
+//        self.threads = threads
+//    }
 }

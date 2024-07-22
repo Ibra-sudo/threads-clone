@@ -18,5 +18,6 @@ struct Comment: Identifiable, Codable {
     var id: String {
         return commentId ?? NSUUID().uuidString
     }
-
+    
+    var user: User?
 }

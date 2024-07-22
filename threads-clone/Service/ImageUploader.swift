@@ -15,7 +15,7 @@ struct ImageUploader {
         let filename = NSUUID().uuidString
         let storageRef = Storage.storage().reference(withPath: "/profile_images/\(filename)")
         
-        do{
+        do {
             let _ = try await storageRef.putDataAsync(imageData)
             let url = try await storageRef.downloadURL()
             return url.absoluteString

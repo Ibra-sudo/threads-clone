@@ -11,6 +11,7 @@ import Firebase
 class ComponentsViewModel: ObservableObject {
     
     @Published var threads = [Thread]()
+    @Published var comments = [Comment]()
     
     init() {
         Task { try await fetchUserThreads() }
@@ -49,16 +50,16 @@ class ComponentsViewModel: ObservableObject {
         }
     }
     
-//    @MainActor
-//    func toggleLike(thread: Thread) async throws {
+    @MainActor
+    func fetchThreadsWithUserComments() async throws {
+        
+        do {
+            self.comments = try await ThreadService.fetchComments()
+        } catch {
+            print("error fetching comments")
+        }
 //        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        try await ThreadService.toggleLikeThread(thread: thread, uid: uid)
-//        if let index = threads.firstIndex(where: { $0.id == thread.id }) {
-//            if threads[index].likes.contains(uid) {
-//                threads[index].likes.removeAll(where: { $0 == uid })
-//            } else {
-//                threads[index].likes.insert(uid, at: 0)
-//            }
-//        }
-//    }
+//        self.threads = try await ThreadService.fetchThreadsWithUserComments(uid: uid)
+    }
+    
 }

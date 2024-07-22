@@ -12,6 +12,7 @@
 		33BED4372C4C512C002049A9 /* CalculateHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BED4362C4C512C002049A9 /* CalculateHeight.swift */; };
 		33BED4392C4C6C2B002049A9 /* ReplayThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BED4382C4C6C2B002049A9 /* ReplayThreadCell.swift */; };
 		33BED43B2C4C7B26002049A9 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BED43A2C4C7B26002049A9 /* Comment.swift */; };
+		33BED43F2C4DD2EF002049A9 /* RepliesThreadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BED43E2C4DD2EF002049A9 /* RepliesThreadView.swift */; };
 		33E9B9192C3D8F6E007425CC /* threads_cloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B9182C3D8F6E007425CC /* threads_cloneApp.swift */; };
 		33E9B91B2C3D8F6E007425CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E9B91A2C3D8F6E007425CC /* ContentView.swift */; };
 		33E9B91D2C3D8F70007425CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E9B91C2C3D8F70007425CC /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		33BED4362C4C512C002049A9 /* CalculateHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHeight.swift; sourceTree = "<group>"; };
 		33BED4382C4C6C2B002049A9 /* ReplayThreadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayThreadCell.swift; sourceTree = "<group>"; };
 		33BED43A2C4C7B26002049A9 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		33BED43E2C4DD2EF002049A9 /* RepliesThreadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepliesThreadView.swift; sourceTree = "<group>"; };
 		33E9B9152C3D8F6E007425CC /* threads-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "threads-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E9B9182C3D8F6E007425CC /* threads_cloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threads_cloneApp.swift; sourceTree = "<group>"; };
 		33E9B91A2C3D8F6E007425CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				33E9B9AA2C46BB86007425CC /* ActivityCell.swift */,
 				33E9B9502C3ED766007425CC /* CircularProfileImageView.swift */,
 				33BED4382C4C6C2B002049A9 /* ReplayThreadCell.swift */,
+				33BED43E2C4DD2EF002049A9 /* RepliesThreadView.swift */,
 				33E9B94D2C3E22AA007425CC /* ThreadCell.swift */,
 				33E9B9522C3ED830007425CC /* UserCell.swift */,
 			);
@@ -719,6 +722,7 @@
 				33E9B9442C3DA53E007425CC /* CreatThreadView.swift in Sources */,
 				33E9B9812C419030007425CC /* CurrentUserProfileView.swift in Sources */,
 				33624ADE2C4B4476003DCBDD /* CommentThreadViewModel.swift in Sources */,
+				33BED43F2C4DD2EF002049A9 /* RepliesThreadView.swift in Sources */,
 				33E9B91B2C3D8F6E007425CC /* ContentView.swift in Sources */,
 				33E9B9902C447E79007425CC /* EditProfileViewModel.swift in Sources */,
 				33E9B9192C3D8F6E007425CC /* threads_cloneApp.swift in Sources */,
