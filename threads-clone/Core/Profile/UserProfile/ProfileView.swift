@@ -12,6 +12,7 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     
     let user: User
+    let comment: Comment
     
     var body: some View {
         
@@ -33,7 +34,7 @@ struct ProfileView: View {
                         .cornerRadius(8)
                 }
                 
-                UserContentListView(user: user)
+                UserContentListView(user: user, comment: comment)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -42,6 +43,11 @@ struct ProfileView: View {
     }
 }
 
-#Preview {
-    ProfileView(user: User(id: NSUUID().uuidString, fullname: "Max Moro", email: "max@gmail.com", username: "maxmoro1", bio: ""))
+//#Preview {
+//    ProfileView(user: User(id: NSUUID().uuidString, fullname: "Max Moro", email: "max@gmail.com", username: "maxmoro1", bio: ""))
+//}
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView(user: dev.user, comment: dev.comment)
+    }
 }

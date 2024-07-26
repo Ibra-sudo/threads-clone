@@ -11,7 +11,8 @@ import Firebase
 class ComponentsViewModel: ObservableObject {
     
     @Published var threads = [Thread]()
-    @Published var comments = [Comment]()
+    @Published var userComments = [Comment]()
+    @Published var threadCommentPairs = [ThreadCommentPair]()
     
     init() {
         Task { try await fetchUserThreads() }
@@ -51,15 +52,9 @@ class ComponentsViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchThreadsWithUserComments() async throws {
-        
-        do {
-            self.comments = try await ThreadService.fetchComments()
-        } catch {
-            print("error fetching comments")
-        }
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        self.threads = try await ThreadService.fetchThreadsWithUserComments(uid: uid)
+    func fetchThreadsWithUserComments(thread: Thread) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        self.userComments = thread.comments.filter { $0.ownerUid == uid }
     }
     
 }

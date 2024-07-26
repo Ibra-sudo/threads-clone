@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ExploreView: View {
+    
+    let comment: Comment
     
     @StateObject var viewModel = ExploreViewModel()
     @State private var searchText = ""
@@ -30,7 +33,7 @@ struct ExploreView: View {
                 }
             }
             .navigationDestination(for: User.self, destination: { user in
-                ProfileView(user: user)
+                ProfileView(user: user, comment: comment)
             })
             .navigationTitle("Search")
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
@@ -39,6 +42,11 @@ struct ExploreView: View {
     }
 }
 
-#Preview {
-    ExploreView()
+//#Preview {
+//    ExploreView()
+//}
+struct ExploreView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExploreView(comment: dev.comment)
+    }
 }

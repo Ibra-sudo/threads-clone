@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct UserContentListView: View {
     
@@ -19,8 +20,8 @@ struct UserContentListView: View {
         return UIScreen.main.bounds.width / count - 16
     }
     
-    init(user: User) {
-        self._viewModel = StateObject(wrappedValue: UserContentListViewModel(user: user))
+    init(user: User, comment: Comment) {
+        self._viewModel = StateObject(wrappedValue: UserContentListViewModel(user: user, comment: comment))
     }
     
     var body: some View {
@@ -61,8 +62,17 @@ struct UserContentListView: View {
                 }
             case .replies:
                 LazyVStack {
-                    ForEach(viewModel.threads) { thread in
-                        RepliesThreadView(thread: thread)
+                    ForEach(viewModel.threadCommentPairs, id: \.thread.id) { pair in
+                        ForEach(pair.comments, id: \.id) { comment in
+                            RepliesThreadView(thread: pair.thread, comment: comment)
+                        }
+//                        if let firstComment = pair.comments.first {
+//                        RepliesThreadView(thread: pair.thread, comment: firstComment)
+//                            } else {
+//                                // Handle the case where there are no comments, if necessary
+//                                // For example, you could show a placeholder view or a message
+//                                RepliesThreadView(thread: pair.thread, comment: nil)
+//                            }
                     }
                 }
             case .reposts:
@@ -77,11 +87,17 @@ struct UserContentListView: View {
             }
         }
         .padding(.horizontal, 5)
+        .onAppear {
+            Task {
+                try await viewModel.fetchUserThreads()
+                try await viewModel.fetchThreadsWithComments()
+            }
+        }
     }
 }
 
 struct UserContentListView_Previews: PreviewProvider {
     static var previews: some View {
-        UserContentListView(user: dev.user)
+        UserContentListView(user: dev.user, comment: dev.comment)
     }
 }

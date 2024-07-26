@@ -48,6 +48,7 @@ struct ThreadCell: View {
                         .font(.footnote)
                         .multilineTextAlignment(.leading)
                     
+                    
                     HStack(spacing: 16) {
                         Button {
                             Task {
@@ -56,7 +57,7 @@ struct ThreadCell: View {
                                 } else {
                                     try await viewModel.likeThread(thread: thread)
                                 }
-//                                try await viewModel.toggleLike(thread: thread)
+                                //                                try await viewModel.toggleLike(thread: thread)
                                 likeToggle.toggle()
                             }
                         } label: {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -23,7 +24,7 @@ struct threads_cloneApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(user: User(id: NSUUID().uuidString, fullname: "", email: "", username: "", profileImageUrl: "", bio: ""))
+            ContentView(user: User(id: NSUUID().uuidString, fullname: "", email: "", username: "", profileImageUrl: "", bio: ""), comment: Comment(ownerUid: "", caption: "", timestamp: Timestamp()))
         }
     }
 }

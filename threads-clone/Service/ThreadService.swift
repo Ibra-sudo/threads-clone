@@ -55,30 +55,125 @@ struct ThreadService {
         try await document.updateData(["comments": FieldValue.arrayUnion([Firestore.Encoder().encode(comment)])])
     }
     
-    static func fetchThreadsWithUserComments(uid: String) async throws -> [Thread] {
+//    static func fetchThreadsWithComments(uid: String) async throws -> [ThreadCommentPair] {
+//        var threadCommentPairs = [ThreadCommentPair]()
+//        let snapshot = try await Firestore
+//            .firestore()
+//            .collection("threads")
+//            .order(by: "timestamp", descending: true)
+//            .getDocuments()
+//        
+//        let threads = snapshot.documents.compactMap { try? $0.data(as: Thread.self) }
+//        
+//        for var thread in threads {
+//            
+//            if thread.ownerUid == uid {
+//                if let threadOwner = try? await UserService.fetchUser(withUid: thread.ownerUid) {
+//                    thread.user = threadOwner
+//                }
+//                
+//                let pair = ThreadCommentPair(thread: thread, comments: thread.comments)
+//                threadCommentPairs.append(pair)
+//            }
+//            
+//            
+////            let filteredComments = thread.comments.filter { $0.ownerUid == uid }
+////            
+////            for var comment in filteredComments {
+////                if let commentOwner = try? await UserService.fetchUser(withUid: comment.ownerUid) {
+////                    comment.user = commentOwner
+////                }
+////            }
+////            
+////            if !filteredComments.isEmpty {
+////                
+////            }
+//        }
+//        return threadCommentPairs
+//    }
+    static func fetchThreadsWithComments(uid: String) async throws -> [ThreadCommentPair] {
+        var threadCommentPairs = [ThreadCommentPair]()
         let snapshot = try await Firestore
             .firestore()
             .collection("threads")
+            .order(by: "timestamp", descending: true)
             .getDocuments()
         
-        let threads = snapshot.documents.compactMap { document -> Thread? in
-            let thread = try? document.data(as: Thread.self)
-            guard let thread = thread else { return nil }
-            let userComments = thread.comments.filter { $0.ownreUid == uid }
-            return userComments.isEmpty ? nil : thread
+        let threads = snapshot.documents.compactMap { try? $0.data(as: Thread.self) }
+        
+        for var thread in threads {
+            
+            if let threadOwner = try? await UserService.fetchUser(withUid: thread.ownerUid) {
+                thread.user = threadOwner
+            }
+            
+            var filteredComments = thread.comments.filter { $0.ownerUid == uid }
+            
+            for i in 0 ..< filteredComments.count {
+                if let commentOwner = try? await UserService.fetchUser(withUid: filteredComments[i].ownerUid) {
+                    filteredComments[i].user = commentOwner
+                }
+            }
+            
+            if !filteredComments.isEmpty {
+                let pair = ThreadCommentPair(thread: thread, comments: filteredComments)
+                threadCommentPairs.append(pair)
+            }
         }
-        
-        return threads.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
-    }
-    
-    static func fetchComments() async throws -> [Comment] {
-        let threads = try await fetchThreads()
-        var comments = [Comment]()
-        
-        for thread in threads {
-            comments.append(contentsOf: thread.comments)
-        }
-        
-        return comments
+        return threadCommentPairs
     }
 }
+
+
+//static func fetchComments(uid: String) async throws -> [ThreadCommentPair] {
+//    var threadCommentPairs = [ThreadCommentPair]()
+//    let snapshot = try await Firestore
+//        .firestore()
+//        .collection("threads")
+//        .order(by: "timestamp", descending: true)
+//        .getDocuments()
+//    
+//    let threads = snapshot.documents.compactMap { try? $0.data(as: Thread.self) }
+////        print("comments in service: \(threads)")
+//    for thread in threads {
+//        let filteredComments = thread.comments.filter { $0.ownerUid == uid }
+//        if !filteredComments.isEmpty {
+//            let pair = ThreadCommentPair(thread: thread, comments: filteredComments)
+//            threadCommentPairs.append(pair)
+//        }
+//    }
+//    print("threadComentPair in service: \(threadCommentPairs)")
+//    return threadCommentPairs
+//}
+
+//static func fetchThreadsWithComments(uid: String) async throws -> [ThreadCommentPair] {
+//    var threadCommentPairs = [ThreadCommentPair]()
+//    let snapshot = try await Firestore
+//        .firestore()
+//        .collection("threads")
+//        .order(by: "timestamp", descending: true)
+//        .getDocuments()
+//    
+//    let threads = snapshot.documents.compactMap { try? $0.data(as: Thread.self) }
+//    
+//    for var thread in threads {
+//        
+//        if let threadOwner = try? await UserService.fetchUser(withUid: thread.ownerUid) {
+//            thread.user = threadOwner
+//        }
+//        
+//        let filteredComments = thread.comments.filter { $0.ownerUid == uid }
+//        
+//        for var comment in filteredComments {
+//            if let commentOwner = try? await UserService.fetchUser(withUid: comment.ownerUid) {
+//                comment.user = commentOwner
+//            }
+//        }
+//        
+//        if !filteredComments.isEmpty {
+//            let pair = ThreadCommentPair(thread: thread, comments: filteredComments)
+//            threadCommentPairs.append(pair)
+//        }
+//    }
+//    return threadCommentPairs
+//}

@@ -10,6 +10,7 @@ import SwiftUI
 struct ThreadsTabView: View {
     
     let user: User
+    let comment: Comment
     
     @State private var selectedTab = 0
     @State private var previousSelectedTap = 0
@@ -26,7 +27,7 @@ struct ThreadsTabView: View {
             }
             .tag(0)
             
-            ExploreView()
+            ExploreView(comment: comment)
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
@@ -45,7 +46,7 @@ struct ThreadsTabView: View {
                 }
                 .tag(3)
             
-            CurrentUserProfileView()
+            CurrentUserProfileView(comment: comment)
                 .tabItem {
                     Image(systemName: selectedTab == 4 ? "person.fill" : "person")
                         .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
@@ -70,7 +71,7 @@ struct ThreadsTabView: View {
 
 struct ThreadsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ThreadsTabView(user: dev.user)
+        ThreadsTabView(user: dev.user, comment: dev.comment)
     }
 }
 

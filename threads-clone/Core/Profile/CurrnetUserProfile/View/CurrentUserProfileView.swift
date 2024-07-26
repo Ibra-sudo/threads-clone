@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct CurrentUserProfileView: View {
     
@@ -13,6 +14,8 @@ struct CurrentUserProfileView: View {
     @StateObject var viewModel = CurrentUserProfileViewModel()
     @State private var showEditProfile = false
     @State private var shareProfile = false
+    
+    let comment: Comment
     
     private var currentUser: User? {
         return viewModel.currentUser
@@ -62,7 +65,7 @@ struct CurrentUserProfileView: View {
                     }
                     
                     if let user = currentUser {
-                        UserContentListView(user: user)
+                        UserContentListView(user: user, comment: comment)
                     }
                 }
             }
@@ -87,6 +90,11 @@ struct CurrentUserProfileView: View {
     }
 }
 
-#Preview {
-    CurrentUserProfileView()
+//#Preview {
+//    CurrentUserProfileView()
+//}
+struct CurrentUserProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        CurrentUserProfileView(comment: dev.comment)
+    }
 }

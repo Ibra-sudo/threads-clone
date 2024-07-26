@@ -22,5 +22,5 @@ class DeveloperPreview {
     
     let thread = Thread(ownerUid: "123", caption: "This is a test thread", timestamp: Timestamp(), likes: [], comments: [])
     
-    let comment = Comment(ownreUid: "123", caption: "This is a test comment", timestamp: Timestamp())
+    let comment = Comment(ownerUid: "123", caption: "This is a test comment", timestamp: Timestamp())
 }
