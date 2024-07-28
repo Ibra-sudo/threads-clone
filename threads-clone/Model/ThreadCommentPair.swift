@@ -11,7 +11,6 @@ import FirebaseFirestore
 struct ThreadCommentPair: Identifiable, Decodable {
     
     @DocumentID var threadCommentPair: String?
-//    var id: String { thread.id }
     
     var thread: Thread
     var comments: [Comment]

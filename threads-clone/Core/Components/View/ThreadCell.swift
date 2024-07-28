@@ -17,6 +17,7 @@ struct ThreadCell: View {
     
     @StateObject var viewModel = ComponentsViewModel()
     @State private var likeToggle: Bool = false
+    @State private var repostToggle: Bool = false
     @State private var showCommentThreadView = false
     
     var body: some View {
@@ -49,7 +50,7 @@ struct ThreadCell: View {
                         .multilineTextAlignment(.leading)
                     
                     
-                    HStack(spacing: 16) {
+                    HStack(spacing: 18) {
                         Button {
                             Task {
                                 if likeToggle {
@@ -65,6 +66,16 @@ struct ThreadCell: View {
                                 .resizable()
                                 .modifier(ThreadCellModifier())
                                 .foregroundColor(likeToggle ? .red : (colorScheme == .dark ? .white : .black))
+                            if !thread.likes.isEmpty {
+                                Text("\(formattedLikesCommentsCount(thread.likes.count))")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                            } else {
+                                Text("\(thread.likes.count)")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                                    .opacity(0.0)
+                            }
                         }
                         
                         Button {
@@ -74,12 +85,39 @@ struct ThreadCell: View {
                                 .resizable()
                                 .modifier(ThreadCellModifier())
                                 .padding(.top, 2)
+                            if !thread.comments.isEmpty {
+                                Text("\(formattedLikesCommentsCount(thread.comments.count))")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                            } else {
+                                Text("\(thread.comments.count)")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                                    .opacity(0.0)
+                            }
                         }
                         
                         Button {
-                            
+                            Task {
+                                if repostToggle {
+                                    try await viewModel.unrepostThread(thread: thread)
+                                } else {
+                                    try await viewModel.repostThread(thread: thread)
+                                }
+                                repostToggle.toggle()
+                            }
                         } label: {
-                            Image(systemName: "arrow.rectanglepath")
+                            Image(systemName: "arrow.2.squarepath")
+                            if !thread.repostedBy.isEmpty {
+                                Text("\(formattedLikesCommentsCount(thread.repostedBy.count))")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                            } else {
+                                Text("\(thread.repostedBy.count)")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                                    .opacity(0.0)
+                            }
                         }
                         
                         Button {
@@ -97,11 +135,27 @@ struct ThreadCell: View {
         }
         .padding()
         .onAppear {
-            likeToggle = thread.likes.contains(Auth.auth().currentUser?.uid ?? "")
+//            likeToggle = thread.likes.contains(Auth.auth().currentUser?.uid ?? "")
+//            Task { repostToggle = thread.repostedBy.contains(where: { $0 == thread.id}) }
         }
         .sheet(isPresented: $showCommentThreadView) {
             CommentThreadView(thread: thread)
         }
+    }
+}
+
+func formattedLikesCommentsCount(_ count: Int) -> String {
+    if count < 1000 {
+        return "\(count)"
+    } else if count < 1_000_000 {
+        let formattedNumber = Double(count) / 1000.0
+        return String(format: "%.1fk", formattedNumber)
+    } else if count < 1_000_000_000 {
+        let formattedNumber = Double(count) / 1_000_000.0
+        return String(format: "%.1fM", formattedNumber)
+    } else {
+        let formattedNumber = Double(count) / 1_000_000_000.0
+        return String(format: "%.1fB", formattedNumber)
     }
 }
 

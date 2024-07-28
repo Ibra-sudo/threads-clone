@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CreatThreadView: View {
     
@@ -50,11 +51,18 @@ struct CreatThreadView: View {
                                     caption = String(newValue.prefix(620))
                                 }
                             }
+                        //upload Image here
+//                        Image("")
+//                            .resizable()
+//                            .scaledToFill()
+//                            .frame(width: 293, height: calculateHeight())
+//                            .overlay {
+//                                RoundedRectangle(cornerRadius: 10)
+//                            }
                         
                         HStack(spacing: 20) {
-                            Button {
-                                
-                            } label: {
+
+                            PhotosPicker(selection: $viewModel.selectedItem) {
                                 Image(systemName: "photo.on.rectangle.angled")
                                     .resizable()
                                     .modifier(ThreadCreateModifier())

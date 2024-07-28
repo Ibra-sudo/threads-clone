@@ -71,7 +71,7 @@ struct RepliesThreadView: View {
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading)
                                 
-                                HStack(spacing: 16) {
+                                HStack(spacing: 18) {
                                     Button {
                                         Task {
                                             if likeToggle {
@@ -87,6 +87,16 @@ struct RepliesThreadView: View {
                                             .resizable()
                                             .modifier(ThreadCellModifier())
                                             .foregroundColor(likeToggle ? .red : (colorScheme == .dark ? .white : .black))
+                                        if !thread.likes.isEmpty {
+                                            Text("\(formattedLikesCommentsCounts(thread.likes.count))")
+                                                .font(.footnote)
+                                                .fontWeight(.light)
+                                        } else {
+                                            Text("\(thread.likes.count)")
+                                                .font(.footnote)
+                                                .fontWeight(.light)
+                                                .opacity(0.0)
+                                        }
                                     }
                                     
                                     Button {
@@ -96,12 +106,32 @@ struct RepliesThreadView: View {
                                             .resizable()
                                             .modifier(ThreadCellModifier())
                                             .padding(.top, 2)
+                                        if !thread.comments.isEmpty {
+                                            Text("\(formattedLikesCommentsCounts(thread.comments.count))")
+                                                .font(.footnote)
+                                                .fontWeight(.light)
+                                        } else {
+                                            Text("\(thread.comments.count)")
+                                                .font(.footnote)
+                                                .fontWeight(.light)
+                                                .opacity(0.0)
+                                        }
                                     }
                                     
                                     Button {
                                         
                                     } label: {
-                                        Image(systemName: "arrow.rectanglepath")
+                                        Image(systemName: "arrow.2.squarepath")
+                                        if !thread.repostedBy.isEmpty {
+                                            Text("\(formattedLikesCommentsCounts(thread.repostedBy.count))")
+                                                .font(.footnote)
+                                                .fontWeight(.light)
+                                        } else {
+                                            Text("\(thread.repostedBy.count)")
+                                                .font(.footnote)
+                                                .fontWeight(.light)
+                                                .opacity(0.0)
+                                        }
                                     }
                                     
                                     Button {
@@ -204,6 +234,21 @@ struct RepliesThreadView: View {
                 
             }
         }
+    }
+}
+
+func formattedLikesCommentsCounts(_ count: Int) -> String {
+    if count < 1000 {
+        return "\(count)"
+    } else if count < 1_000_000 {
+        let formattedNumber = Double(count) / 1000.0
+        return String(format: "%.1fk", formattedNumber)
+    } else if count < 1_000_000_000 {
+        let formattedNumber = Double(count) / 1_000_000.0
+        return String(format: "%.1fM", formattedNumber)
+    } else {
+        let formattedNumber = Double(count) / 1_000_000_000.0
+        return String(format: "%.1fB", formattedNumber)
     }
 }
 

@@ -17,6 +17,7 @@ struct Thread: Identifiable, Codable {
     let timestamp: Timestamp
     var likes: [String]
     var comments: [Comment]
+    var repostedBy: [String]
     
     var id: String {
         return threadId ?? NSUUID().uuidString

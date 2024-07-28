@@ -44,7 +44,7 @@ struct EditProfileView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 40, height: 40)
-//                                    .clipShape(Circle())
+                                    .clipShape(Circle())
                                     .overlay {
                                         Circle()
                                             .stroke(Color(.systemGray2), lineWidth: 1)
@@ -68,7 +68,7 @@ struct EditProfileView: View {
                         Text("Bio")
                             .fontWeight(.semibold)
                         
-                        TextField("Enter your bio...", text: $bio, axis: .vertical)
+                        TextField("+ Write your bio...", text: $bio, axis: .vertical)
                     }
                     .font(.footnote)
                     
@@ -78,7 +78,7 @@ struct EditProfileView: View {
                         Text("Link")
                             .fontWeight(.semibold)
                         
-                        TextField("Add link...", text: $link)
+                        TextField("+ Add link...", text: $link)
                     }
                     .font(.footnote)
                     
@@ -86,6 +86,17 @@ struct EditProfileView: View {
                     
                     Toggle(isOn: $isPrivateProfile) {
                         Text("Private Profile")
+                            .fontWeight(.semibold)
+                        if isPrivateProfile {
+                            Text("Private profiles can only reply to their followers. Switch to public to replay to anyone.")
+                                .font(.footnote)
+                                .fontWeight(.thin)
+                        } else {
+                            Text("If you switch to private, you won't be able to replay to others unless they follow you.")
+                                .font(.footnote)
+                                .fontWeight(.thin)
+                        }
+                        
                     }
                     .tint(colorScheme == .dark ? Color(.darkGray) : Color.black)
 //                    .tint(colorScheme == .light ? Color.white : Color.black)
@@ -118,6 +129,8 @@ struct EditProfileView: View {
                             dismiss()
                         }
                     }
+                    .opacity(viewModel.profileImage == nil && bio.isEmpty && link.isEmpty && !isPrivateProfile ? 0.5 : 1.0)
+                    .disabled(viewModel.profileImage == nil && bio.isEmpty && link.isEmpty && !isPrivateProfile)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)

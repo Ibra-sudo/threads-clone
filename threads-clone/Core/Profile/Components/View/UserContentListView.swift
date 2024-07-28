@@ -63,25 +63,22 @@ struct UserContentListView: View {
             case .replies:
                 LazyVStack {
                     ForEach(viewModel.threadCommentPairs, id: \.thread.id) { pair in
+//                        if let firstComment = pair.comments.first {
+//                            RepliesThreadView(thread: pair.thread, comment: firstComment)
+//                        } else {
+//                            // Handle the case where there are no comments, if necessary
+//                            // For example, you could show a placeholder view or a message
+////                            RepliesThreadView(thread: pair.thread, comment: nil)
+//                        }
                         ForEach(pair.comments, id: \.id) { comment in
                             RepliesThreadView(thread: pair.thread, comment: comment)
                         }
-//                        if let firstComment = pair.comments.first {
-//                        RepliesThreadView(thread: pair.thread, comment: firstComment)
-//                            } else {
-//                                // Handle the case where there are no comments, if necessary
-//                                // For example, you could show a placeholder view or a message
-//                                RepliesThreadView(thread: pair.thread, comment: nil)
-//                            }
                     }
                 }
             case .reposts:
                 LazyVStack {
-                    ForEach(1 ..< 10, id: \.self) { thread in
-                        Text("Reposts")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .padding(.vertical)
+                    ForEach(viewModel.repostThreads) { repost in
+//                        RepostCell(thread: repost.repostId, repost: repost.id)
                     }
                 }
             }
