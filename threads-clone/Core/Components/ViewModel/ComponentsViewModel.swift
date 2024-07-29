@@ -71,10 +71,10 @@ class ComponentsViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func fetchLikes() async throws {
-        likesDictionary = try await ThreadService.fetchLikesForThreads()
-    }
+//    @MainActor
+//    func fetchLikes() async throws {
+//        likesDictionary = try await ThreadService.fetchLikesForThreads()
+//    }
     
     @MainActor
     func fetchThreadsWithUserComments(thread: Thread) async throws {
